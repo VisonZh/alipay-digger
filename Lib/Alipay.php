@@ -116,7 +116,7 @@ class Alipay {
     /**
      * 通知接口
      * @param array $order 订单信息
-     * @return void
+     * @return string
      */
     public function notify(array $order) {
 
@@ -164,10 +164,8 @@ class Alipay {
         $orderArr = $this->parse();
         if(empty($orderArr)) {
             echo "Cookie失效，请重新填写Cookie。\n";
-            return false;
         } else if($orderArr == 'no_order') {
             echo "暂无订单。 \n";
-            return false;
         }
 
         foreach($orderArr as $key => $order) {
