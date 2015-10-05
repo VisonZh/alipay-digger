@@ -45,17 +45,12 @@ class SQLite {
     public function parseKey(array $arr) {
 
         $fields = null;
-        $length = count($arr);
 
         foreach($arr as $idx => $key) {
-            if($idx == $length-1) {
-                $fields .= $key;
-            } else {
                 $fields .= $key . ',';
-            }
         }
 
-        return $fields;
+        return rtrim($fields,',');
     }
 
     /**
