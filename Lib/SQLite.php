@@ -1,6 +1,8 @@
 <?php
 /**
  * SQLite 操作库
+ * @author Roope <admin@cxsir.com>
+ * @version 1.0.1
  */
 
 class SQLite {
