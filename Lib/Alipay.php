@@ -164,8 +164,10 @@ class Alipay {
         $orderArr = $this->parse();
         if(empty($orderArr)) {
             echo "Cookie失效，请重新填写Cookie。\n";
+            return false;
         } else if($orderArr == 'no_order') {
             echo "暂无订单。 \n";
+            return false;
         }
 
         foreach($orderArr as $key => $order) {
