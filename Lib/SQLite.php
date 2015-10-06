@@ -128,7 +128,6 @@ class SQLite {
      */
     public function insert($table,array $keys,array $value) {
 
-
         $key = $this->parseKey($keys);
         $val = $this->parseValue($value);
 
@@ -145,8 +144,6 @@ class SQLite {
      */
     public function update($table,array $value,$where = null) {
 
-        $values = null;
-        $length = count($value);
         $values = null;
 
         foreach($value as $idx => $val) {
