@@ -11,7 +11,7 @@ PHP支付宝免签接口
     ]);
 
 关于Cookie需要登录支付宝后点击账单然后按下F12，然后再console上面输入document.cookie复制cookie填写cookie。
-只需要：ALIPAYJSESSIONID=xxxxxxxxxxxxx;zone=RZ13A;session.cookieNameId=ALIPAYJSESSIONID;
+只需要：ALIPAYJSESSIONID=xxxxxxxxxxxxx;zone=RZ13A;session.cookieNameId=ALIPAYJSESSIONID
 
 然后执行
 
