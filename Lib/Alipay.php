@@ -99,7 +99,6 @@ class Alipay {
         foreach ($ymd as $key => $value) {
             //只要订单数字部分
             preg_match('/\d+/',$trade[$key]->innertext,$tradeNo);
-            //这里可以添加一些逻辑判断语句，例如存到数据库里面遍历查询这个订单是否已经通知成功
             $info[] = array(
                 'time' => trim($ymd[$key]->innertext) . ' ' . trim($his[$key]->innertext),
                 'title' => trim($title[$key]->innertext),
