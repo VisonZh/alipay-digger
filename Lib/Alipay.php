@@ -83,7 +83,7 @@ class Alipay {
         require_once dirname(__FILE__) . '/simple_html_dom.php';
 
         $data = $this->requestURL();
-        if(empty($data) || strlen($data) < 1000)  return null;  //如过抓取到的内容是空的或者小于1000字符说明cookie失效了。
+        if(empty($data) || strlen($data) < 2000)  return null;  //如过抓取到的内容是空的或者小于1000字符说明cookie失效了。
 
         $html = new simple_html_dom();
         $html->load($data);
