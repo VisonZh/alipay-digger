@@ -89,7 +89,7 @@ class Alipay {
         $html->load($data);
         $ymd = $html->find('.time-d');
         $his = $html->find('.time-h');
-        $title = $html->find('.consume-title a');
+        $title = $html->find('.consume-title');
         $trade = $html->find('td.tradeNo p');
         $name = $html->find('p.name');
         $amount = $html->find('td.amount span');
@@ -99,9 +99,10 @@ class Alipay {
         foreach ($ymd as $key => $value) {
             //只要订单数字部分
             preg_match('/\d+/',$trade[$key]->innertext,$tradeNo);
+            $titleName = preg_replace("/[ \n\t]*/", "", $title[$key]->innertext);
             $info[] = array(
                 'time' => trim($ymd[$key]->innertext) . ' ' . trim($his[$key]->innertext),
-                'title' => trim($title[$key]->innertext),
+                'title' => trim($titleName),
                 'trade' => trim($tradeNo[0]),
                 'name' => trim($name[$key]->innertext),
                 'amount' => trim(str_replace('+', '', $amount[$key]->innertext))
@@ -129,7 +130,7 @@ class Alipay {
             ]);
 
         } else {
-            if($exists[0]['has_notify'] == 1) return '已经通知成功，无需再次通知。';
+            if($exists[0]['has_notify'] == 1) return 'done';
         }
 
         //MD5加密下当作签名传过去好校验是不是自己的
@@ -145,7 +146,7 @@ class Alipay {
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         $response = curl_exec($ch);
         //print_r($response);
-	if(curl_errno($ch)) return curl_error($ch);
+        if(curl_errno($ch)) return curl_error($ch);
         if($response == 'success') {
             $this->db->update('trade',['has_notify' => 1],['AND' => [['trade' => $order['trade']]]]);
             return 'success';
@@ -171,7 +172,8 @@ class Alipay {
 
         foreach($orderArr as $key => $order) {
             $notify = $this->notify($order);
-	    if($notify == 'success') echo '订单: ' . $order['trade'] . " 通知成功。\n";
+            if($notify == 'success') echo '订单: ' . $order['trade'] . " 通知成功。\n";
+            else if($notify == 'done')  echo '订单: ' . $order['trade'] . " 已经通知成功，无需再次通知。\n";
             else echo '订单: ' . $order['trade'] . " 通知失败。错误信息：$notify \n";
         }
     }
